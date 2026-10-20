@@ -1,0 +1,50 @@
+/* Styles for the components in components.js. Add yours at the bottom. */
+
+.c-definition .c-term {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.c-definition .c-example {
+    color: #666;
+    font-style: italic;
+}
+
+.c-steps ol {
+    padding-left: 1.4em;
+}
+
+.c-steps li {
+    margin-bottom: 6px;
+}
+
+.c-compare table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.9em;
+}
+
+.c-compare th,
+.c-compare td {
+    border: 1px solid #ddd;
+    padding: 6px 8px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.c-compare th {
+    background: #f1f1f6;
+}
+
+.c-text {
+    white-space: pre-wrap;
+    color: #555;
+}
+
+.widget h3 {
+    margin: 0 0 8px;
+    font-size: 1.05em;
+}
+
+/* YOUR TASK (Part 2, optional): styles for your new component */
