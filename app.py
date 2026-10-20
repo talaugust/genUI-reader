@@ -50,7 +50,7 @@ COMPONENTS = {
         },
     },
     # =========================================================
-    # YOUR TASK (Part 2, step 2 of 2): Add your new component here,
+    # YOUR TASK (Part 2, step 2 of 2, see below for part 1): Add your new component here,
     # using the same shape as the entries above. The name must
     # match the renderer you add in static/components.js.
     # =========================================================
@@ -69,17 +69,18 @@ def catalog_text():
 
 def extract_json(text):
     """
-    Models often wrap JSON in ```json fences or add a sentence before it.
-    This pulls out the first {...} object and parses it.
+    Models often wrap JSON in ```json fences or add sentences around it.
+    This returns the first {...} object in the text that parses as JSON.
     Returns a dict, or None if no valid JSON was found.
     """
-    match = re.search(r"\{.*\}", text, re.DOTALL)
-    if not match:
-        return None
-    try:
-        return json.loads(match.group(0))
-    except json.JSONDecodeError:
-        return None
+    decoder = json.JSONDecoder()
+    for match in re.finditer(r"\{", text):
+        try:
+            obj, _ = decoder.raw_decode(text, match.start())
+            return obj
+        except json.JSONDecodeError:
+            continue
+    return None
 
 
 def extract_html(text):
@@ -178,6 +179,11 @@ def generate():
     # reader still sees something:
     #
     #   spec = {"component": "text_card", "props": {"text": raw}}
+    #
+    # HINT: the model might send a list instead of a name, like
+    # "component": ["step_list"]. Checking a list with `in COMPONENTS`
+    # crashes, so first check that it's a string:
+    #   isinstance(spec.get("component"), str)
     # =========================================================
 
     result = {"spec": spec, "raw": raw}

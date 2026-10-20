@@ -5,7 +5,7 @@ A Flask web app that shows a PDF and lets you select any passage. A language mod
 - **Catalog mode:** the model picks a component from a fixed list (definition card, step list, comparison table, ...) and fills in its data as JSON. Your code draws it.
 - **Freeform mode:** the model writes the whole widget as HTML, which runs in a sandboxed iframe.
 
-Full instructions, reflection questions and grading are in the class assignment doc.
+Full instructions and submission details are in the class assignment doc, **GenUI for augmenting your reading**. This README covers setup and how the code fits together.
 
 ---
 
@@ -23,7 +23,11 @@ All the places to edit are marked with `YOUR TASK` comments.
 
 ## Initial Setup
 
-### 1. Set up a local environment and install dependencies
+### 1. Open the project
+
+**GitHub Codespaces (recommended):** on the repository page, click the green **Code** button → **Codespaces** → **Create codespace on main**. You must be logged into GitHub, and the first launch can take a minute. Dependencies are installed for you, so skip to step 2.
+
+**Local (only if Codespaces is too slow):** clone the repo, then set up a virtual environment and install dependencies:
 
 ```bash
 python3 -m venv .venv
@@ -58,6 +62,8 @@ You need to do this again in every new terminal.
 
 > **GitHub Codespaces:** you can store the key as a Codespaces secret named `LUMEN_API_KEY` instead:
 > Repository → Settings → Secrets and variables → Codespaces → New repository secret
+>
+> A secret only reaches codespaces started after you add it, so restart your codespace afterward.
 
 ### 4. Check your key and model
 
@@ -77,9 +83,14 @@ Open [http://localhost:3000](http://localhost:3000). Select a sentence in the PD
 
 **GitHub Codespaces:** the Ports tab (bottom panel) shows port 3000 with a forwarded URL. Click the globe icon to open it.
 
-### Using a different PDF
+### Using your own paper
 
-The app shows `sample.pdf` from the project root. Replace it with any PDF (a paper, a textbook chapter, a Wikipedia article saved as PDF). Scanned PDFs without real text won't be selectable.
+The app shows `sample.pdf` from the project root. For the assignment, replace it with the paper you picked and **keep the file name `sample.pdf`**. In Codespaces, drag the file into the Explorer sidebar to upload it.
+
+- A short paper (or just a page or two) makes everything run faster.
+- Scanned PDFs without real text won't be selectable.
+
+Refresh the browser to see the new PDF.
 
 ---
 
@@ -94,7 +105,7 @@ For changes to `templates/`, `static/components.js` or `static/components.css`, 
 - Every card has a **Raw model output** section. Open it to see exactly what the model said.
 - Errors from Python show up in the terminal running `app.py`.
 - Errors from JavaScript show up in the browser console (right-click → Inspect → Console).
-- Replies are cached per passage, so selecting the same passage again won't show a new answer after you change a prompt. Restart the app (Ctrl+C, then `python app.py`) to clear the cache. Saving `app.py` also clears it.
+- Replies are cached per passage, so selecting the same passage again won't show a new answer after you change a prompt. Saving `app.py` clears the cache (Flask restarts), and so does restarting the app (Ctrl+C, then `python app.py`).
 
 ---
 

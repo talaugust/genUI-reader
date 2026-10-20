@@ -284,9 +284,14 @@
                 raw.textContent = data.raw;
 
                 if (mode === 'catalog') {
-                    const spec = data.spec || { component: 'text_card', props: { text: data.raw } };
-                    meta.textContent = `catalog · ${spec.component}`;
-                    widget.innerHTML = renderComponent(spec);
+                    if (!data.spec) {
+                        // app.py sent no spec: the check in generate() (Part 1, step 3) isn't written yet
+                        meta.textContent = 'catalog · no spec (see Part 1, step 3)';
+                        widget.innerHTML = renderComponent({ component: 'text_card', props: { text: data.raw } });
+                        return;
+                    }
+                    meta.textContent = `catalog · ${data.spec.component}`;
+                    widget.innerHTML = renderComponent(data.spec);
                 } else {
                     showInSandbox(widget, data.html);
                 }
